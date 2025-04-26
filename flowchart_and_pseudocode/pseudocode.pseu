@@ -1,0 +1,44 @@
+BEGIN
+  DISPLAY "Welcome to the Sorting Algorithm Program"
+  DISPLAY "Select an algorithm:"
+  DISPLAY "1. Bubble Sort"
+  DISPLAY "2. Selection Sort"
+  DISPLAY "3. Quick Sort"
+  INPUT algorithm_choice 
+  IF algorithm_choice IS NOT IN (1, 2, 3) THEN
+    DISPLAY "Invalid choice. Please select 1, 2, or 3."
+    GOTO Select Algorithm  // Jump back to algorithm selection
+  ENDIF
+Select Algorithm:
+  DISPLAY "Enter numbers separated by commas:"
+  INPUT numbers_string
+  TRY
+    numbers_list = CONVERT numbers_string TO LIST of INTEGERS
+  CATCH error
+    DISPLAY "Invalid input. Please enter numbers separated by commas."
+    GOTO Select Algorithm // Jump back to input
+  ENDTRY
+  DISPLAY "Select sorting order:"
+  DISPLAY "1. Ascending"
+  DISPLAY "2. Descending"
+  INPUT order_choice
+  IF order_choice IS NOT IN (1, 2) THEN
+    DISPLAY "Invalid choice. Please select 1 or 2."
+    GOTO Select Order //Jump back to order selection
+  ENDIF
+Select Order:
+  ascending = (order_choice == 1) //Set boolean for ascending/descending
+  SWITCH algorithm_choice
+    CASE 1:
+      sorted_list = BUBBLE_SORT(numbers_list.copy(), ascending) //Use copy to prevent original list
+    CASE 2:
+      sorted_list = SELECTION_SORT(numbers_list.copy(), ascending)
+    CASE 3:
+      sorted_list = QUICK_SORT(numbers_list.copy(), ascending)
+  ENDSWITCH
+  DISPLAY "Sorted list:"
+  DISPLAY sorted_list
+END
+
+
+
